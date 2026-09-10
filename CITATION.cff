@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you reference this project, please cite both authors."
+title: "Forecast-Driven Elevator Group Control Under Traffic Drift"
+type: software
+authors:
+  - family-names: Abedin
+    given-names: Hannah
+  - family-names: Razmand
+    given-names: Erfan
+version: 1.0.0
+date-released: 2026-08-13
+repository-code: "https://github.com/mikeyoknow/forecast-driven-elevator-control"
+url: "https://github.com/mikeyoknow/forecast-driven-elevator-control"
+keywords:
+  - applied machine learning
+  - elevator group control
+  - demand forecasting
+  - digital twin
+  - distribution shift
+  - simulation
