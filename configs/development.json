@@ -1,0 +1,58 @@
+{
+  "experiment_name": "development_v1",
+  "building": {
+    "n_floors": 15,
+    "n_elevators": 4,
+    "capacity": 12,
+    "seconds_per_floor": 2,
+    "door_seconds": 4,
+    "maximum_drain_minutes": 30
+  },
+  "traffic": {
+    "duration_minutes": 75,
+    "train_scenarios": ["morning", "lunch", "evening", "mixed"],
+    "stress_scenarios": ["surge"],
+    "train_days_per_scenario": 10,
+    "validation_days_per_scenario": 3,
+    "development_test_days_per_scenario": 4,
+    "stress_days_per_scenario": 4
+  },
+  "forecast": {
+    "history_windows_minutes": [1, 3, 5, 10],
+    "target_horizons_minutes": [1, 2, 5],
+    "primary_horizon_minutes": 2
+  },
+  "evaluation": {
+    "long_wait_seconds": 60,
+    "bootstrap_resamples": 2000,
+    "positioning_distance_penalties": [0.0, 0.15, 0.35, 0.6],
+    "positioning_minimum_advantages": [0.0, 0.5, 1.0],
+    "positioning_intervals_minutes": [1, 2, 5],
+    "movement_budget_percent": 5.0,
+    "high_demand_multiplier": 1.5
+  },
+  "models": {
+    "historical_bucket_minutes": 10,
+    "ridge_alphas": [1.0, 10.0, 50.0],
+    "random_forest_n_estimators": 120,
+    "random_forest_max_depths": [8, 14, 20],
+    "random_forest_min_samples_leaf": [2, 5],
+    "random_state": 3404
+  },
+  "sequence_models": {
+    "sequence_lengths": [5, 10],
+    "hidden_sizes": [16, 32],
+    "learning_rate": 0.003,
+    "batch_size": 64,
+    "maximum_epochs": 120,
+    "early_stopping_patience": 15,
+    "gradient_clip_norm": 5.0,
+    "l2_penalty": 0.0001
+  },
+  "seeds": {
+    "train": 10000,
+    "validation": 200000,
+    "development_test": 400000,
+    "stress": 800000
+  }
+}

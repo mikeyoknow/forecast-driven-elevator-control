@@ -1,0 +1,74 @@
+{
+  "protocol_name": "eecs3404_final_v1",
+  "status": "locked_before_seed_reveal",
+  "locked_utc": "2026-08-10T17:37:49Z",
+  "source_manifest": "outputs/protocol_lock/source_manifest.sha256",
+  "training_policy": "Fit all tabular models on the original training days. Use validation only for locked hyperparameter selection and RNN early stopping.",
+  "final_seed_file": "configs/final_seed.json",
+  "run_once": true,
+  "evaluations": {
+    "in_distribution": {
+      "scenarios": ["morning", "lunch", "evening", "mixed"],
+      "days_per_scenario": 5,
+      "demand_multiplier": 1.0,
+      "seed_offset_increment": 0
+    },
+    "unseen_surge": {
+      "scenarios": ["surge"],
+      "days_per_scenario": 8,
+      "demand_multiplier": 1.0,
+      "seed_offset_increment": 100000
+    },
+    "high_demand": {
+      "scenarios": ["morning", "lunch", "evening", "mixed"],
+      "days_per_scenario": 2,
+      "demand_multiplier": 1.5,
+      "seed_offset_increment": 200000
+    }
+  },
+  "selected_forecast_hyperparameters": {
+    "ridge_alpha": 1.0,
+    "random_forest_max_depth": 20,
+    "random_forest_min_samples_leaf": 5,
+    "random_forest_n_estimators": 120,
+    "random_state": 3404
+  },
+  "selected_rnn_hyperparameters": {
+    "sequence_length": 10,
+    "hidden_size": 32,
+    "selection_epoch": 9,
+    "early_stopping_on_validation": true
+  },
+  "selected_controller_parameters": {
+    "distance_penalty": 0.0,
+    "minimum_score_advantage": 0.5,
+    "positioning_interval_minutes": 5,
+    "movement_budget_percent": 5.0
+  },
+  "forecast_models": [
+    "per_floor_mean",
+    "historical_mean",
+    "persistence",
+    "ridge",
+    "random_forest",
+    "elman_rnn"
+  ],
+  "controller_policies": [
+    "nearest_car",
+    "static_zoning",
+    "historical_positioning",
+    "tuned_random_forest",
+    "perfect_input_greedy"
+  ],
+  "primary_forecast_comparison": "random_forest versus historical_mean per-floor MAE",
+  "primary_controller_comparison": "tuned_random_forest versus nearest_car mean passenger wait",
+  "secondary_controller_metrics": [
+    "p95_wait_s",
+    "long_wait_rate",
+    "mean_journey_s",
+    "floor_fairness_gap_s",
+    "floors_travelled"
+  ],
+  "uncertainty_method": "95% paired building-day bootstrap with 2000 resamples",
+  "post_holdout_rule": "Report all results without tuning, threshold changes, model changes, controller changes, or seed regeneration."
+}
